@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Checkout - Select Address - ShopHub</title>
+    <base href="/">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css1/all.css" rel="stylesheet">
+    <link href="images/icon.png" rel="icon"/>
+    <link href="css/style4.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Select Shipping Address</h3>
+                </div>
+                <div class="card-body">
+                    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3" th:each="address : ${addresses}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Address</h5>
+                                    <p class="card-text">
+                                        <span th:text="${address.street}"></span><br>
+                                        <span th:text="${address.city}"></span>, 
+                                        <span th:text="${address.state}"></span> 
+                                        <span th:text="${address.zip}"></span><br>
+                                        <span th:text="${address.country}"></span>
+                                    </p>
+                                    <a th:href="@{/checkout/use-address/{id}(id=${address.id})}" 
+                                       class="btn btn-primary">Use This Address</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="/checkout/new-address" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add New Address
+                        </a>
+                        <a href="/shoppingCart" class="btn btn-secondary">Back to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+I want the logged in user to checkout the products in the cart.
+
+A user can have multiple saved addresses. If address is not there in case user logged in for the first time and added the cart and try to checkout, or if they choose to add a new one, show the page to enter the address which should ask fields like street, city, state, zip, country and save it to the user. But if addresses are already there in the saved addresses then show the address list and then ask to select with radio buttons.
+
+When the order is created, set the initial order status automatically to 'pending' and save the selected shipping address in the order record. The order item should store a snapshot of the item details (item id, item name, price at time of purchase, quantity) so future product changes do not change old orders.
+
+Post order completion receive the order confirmation slip and should be displayed. It is a page displayed after checkout.
+Order confirmation slip should contain the order id, item id, item name, Amount, Date.
+
+Logged in user should be able to view the orders as list page AND an order detail page.
+Consider order status as pending, shipped, delivered, cancelled. As of now we will allow only view for the statuses no one should be able to change.
+
+Points to consider:
+
+once order is placed we should reduce the item in the stock
+
+shopping cart to be cleared.
+
+logged in users can checkout only
+
+empty cart cannot be checked out

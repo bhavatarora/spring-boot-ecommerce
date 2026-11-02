@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Confirm Order - ShopHub</title>
+    <base href="/">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css1/all.css" rel="stylesheet">
+    <link href="images/icon.png" rel="icon"/>
+    <link href="css/style4.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Confirm Your Order</h3>
+                </div>
+                <div class="card-body">
+                    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Shipping Address</h5>
+                            <p>
+                                <span th:text="${address.street}"></span><br>
+                                <span th:text="${address.city}"></span>, 
+                                <span th:text="${address.state}"></span> 
+                                <span th:text="${address.zip}"></span><br>
+                                <span th:text="${address.country}"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Order Summary</h5>
+                            <table class="table">
+                                <tbody>
+                                    <tr th:each="item : ${cart.items}">
+                                        <td th:text="${item.product.name}"></td>
+                                        <td>Qty: <span th:text="${item.quantity}"></span></td>
+                                        <td th:text="'$' + ${item.product.price * item.quantity}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Total</strong></td>
+                                        <td><strong th:text="'$' + ${cart.totalPrice}"></strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <form th:action="@{/checkout/place-order}" method="post">
+                            <input type="hidden" name="addressId" th:value="${address.id}">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-check"></i> Place Order
+                            </button>
+                            <a href="/checkout" class="btn btn-secondary">Back</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

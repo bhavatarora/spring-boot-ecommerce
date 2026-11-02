@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Order Details - ShopHub</title>
+    <base href="/">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css1/all.css" rel="stylesheet">
+    <link href="images/icon.png" rel="icon"/>
+    <link href="css/style4.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-file-invoice"></i> Order Details</h3>
+                </div>
+                <div class="card-body">
+                    <h5>Order Information</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Order ID:</th>
+                            <td th:text="${order.id}"></td>
+                        </tr>
+                        <tr>
+                            <th>Order Date:</th>
+                            <td th:text="${#temporals.format(order.orderDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td>
+                                <span class="badge" 
+                                      th:classappend="${order.status.name() == 'PENDING' ? 'bg-warning' : 
+                                                      (order.status.name() == 'SHIPPED' ? 'bg-info' : 
+                                                      (order.status.name() == 'DELIVERED' ? 'bg-success' : 'bg-danger'))}"
+                                      th:text="${order.status}">
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total Amount:</th>
+                            <td><strong th:text="'$' + ${order.totalAmount}"></strong></td>
+                        </tr>
+                    </table>
+                    
+                    <h5 class="mt-4">Order Items</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${order.items}">
+                                <td th:text="${item.itemId}"></td>
+                                <td th:text="${item.itemName}"></td>
+                                <td th:text="${item.quantity}"></td>
+                                <td th:text="'$' + ${item.price}"></td>
+                                <td th:text="'$' + ${item.subtotal}"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                                <td><strong th:text="'$' + ${order.totalAmount}"></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5 class="mt-4">Shipping Address</h5>
+                    <p>
+                        <span th:text="${order.shippingStreet}"></span><br>
+                        <span th:text="${order.shippingCity}"></span>, 
+                        <span th:text="${order.shippingState}"></span> 
+                        <span th:text="${order.shippingZip}"></span><br>
+                        <span th:text="${order.shippingCountry}"></span>
+                    </p>
+                    
+                    <div class="mt-4">
+                        <a href="/orders" class="btn btn-primary">Back to Orders</a>
+                        <a href="/" class="btn btn-secondary">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
